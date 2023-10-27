@@ -1,6 +1,6 @@
 let popupWindowId;
-let watchForUrlChange = false;  // Flag to start/stop watching for URL changes
-let monitoredTabId;  // Tab ID we're monitoring for URL changes
+let monitoredTabUrl;  // URL of the tab we're monitoring
+let isExtensionUpdate = false;  // Flag to track if the URL update was initiated by the extension
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.youtubeURL) {
@@ -20,10 +20,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         .then(data => {
             if (data.direct_link) {
                 if (message.type === "openInSameTab") {
+                    isExtensionUpdate = true;  // Set the flag to true before updating the tab's URL
                     chrome.tabs.update(sender.tab.id, { url: strippedYouTubeURL }, (tab) => {
-                        // The tab will be reloaded. Wait for it to complete loading.
-                        watchForUrlChange = false;
-                        monitoredTabId = tab.id;  // Store the tab ID where we're looking for URL change
                         chrome.windows.create({
                             url: data.direct_link,
                             type: 'popup',
@@ -34,6 +32,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                         }, (window) => {
                             popupWindowId = window.id;
                         });
+                        // Store the URL of the tab we're monitoring
+                        monitoredTabUrl = strippedYouTubeURL;
                     });
                 } else {
                     chrome.windows.create({
@@ -45,7 +45,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                         height: 810
                     }, (window) => {
                         popupWindowId = window.id;
-                        monitoredTabId = sender.tab.id;  // Store the tab ID where we're looking for URL change
+                        // Store the URL of the tab we're monitoring
+                        monitoredTabUrl = sender.tab.url;
                     });
                 }
             } else {
@@ -58,14 +59,22 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
 });
 
-
-// Modify the tabs.onUpdated listener
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (popupWindowId && tabId === monitoredTabId) {
-        if (!tab.url.includes('youtube.com/watch?v=')) {
+    // Check if the tab has finished loading
+    if (changeInfo.status !== 'complete') {
+        return;
+    }
+    
+    if (isExtensionUpdate) {
+        isExtensionUpdate = false;  // Reset the flag after the tab update
+        return;  // Exit the listener since this is an extension-initiated update
+    }
+
+    if (popupWindowId && monitoredTabUrl) {
+        if (tab.url !== monitoredTabUrl) {
             chrome.windows.remove(popupWindowId);
             popupWindowId = null;
-            watchForUrlChange = false;
+            monitoredTabUrl = null;
         }
     }
 });
@@ -74,11 +83,14 @@ chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
     if (popupWindowId && tabId === monitoredTabId) {
         chrome.windows.remove(popupWindowId);
         popupWindowId = null;
+        monitoredTabUrl = null;
     }
 });
 
 chrome.tabs.onActivated.addListener((activeInfo) => {
-    if (popupWindowId && activeInfo.tabId === monitoredTabId) {
-        chrome.windows.update(popupWindowId, { focused: true });
-    }
+    chrome.tabs.get(activeInfo.tabId, (tab) => {
+        if (popupWindowId && tab.url && tab.url.includes(monitoredTabUrl)) {
+            chrome.windows.update(popupWindowId, { focused: true });
+        }
+    });
 });
