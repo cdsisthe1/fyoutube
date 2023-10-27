@@ -1,6 +1,3 @@
-Certainly! Here's the updated README:
-
----
 
 <p align="center">
   <img src="fyoutube.png" alt="fYouTube logo">
@@ -31,7 +28,6 @@ if there are any updates you think I could add or any issues you encounter, plea
 if you find this project useful, consider supporting me by clicking the donate button below. every bit helps!
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=R92KGPYHPE3JY)
+cdsisthe1
 
----
 
-You can copy and paste this into your GitHub project's README.
