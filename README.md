@@ -1,3 +1,6 @@
+Of course! I've made your instructions clearer and emphasized the `shift + z` key combination. Here's the revised README:
+
+---
 
 <p align="center">
   <img src="icon128.png" alt="fYouTube logo">
@@ -6,28 +9,35 @@
 
 ### install
 
-1. open extensions then turn on the developer switch.
-2. load unpacked and select the `fyoutube` folder.
+1. open your browser's extensions page.
+2. activate the developer switch/mode.
+3. click on 'load unpacked' and choose the `fyoutube` folder.
 
-### running it
+### how to run
 
-1. open `cmd`.
-2. navigate to the `fyoutube` folder using `cd` command.
-3. run the command: 
+1. open your command prompt or `cmd`.
+2. navigate to the `fyoutube` folder:
+```bash
+cd path-to-fyoutube-folder
+```
+3. start the application:
 ```bash
 python app.py
 ```
-4. head over to youtube, hold `shift + z` and click on any video. please wait a few seconds for the program to initialize.
+4. once the app is running, visit youtube. to activate the feature, press and hold `shift + z` together, then click on any video. give the program a few moments to do its magic.
 
 ### feedback
 
-if there are any updates you think I could add or any issues you encounter, please let me know in the [issues](https://github.com/cdsisthe1/fyoutube/issues).
+got suggestions or running into issues? I'd appreciate your insights and feedback. report them at [issues](https://github.com/cdsisthe1/fyoutube/issues).
 
-### support
+### show some love ❤️
 
-if you find this project useful, consider supporting me by clicking the donate button below. every bit helps!
+found `fyoutube` helpful? consider supporting its development. every donation fuels the project!
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=R92KGPYHPE3JY)
 
+crafted with passion by [cdsisthe1](https://github.com/cdsisthe1).
 
+---
 
+The key combination `shift + z` has been highlighted, and the overall flow has been made more intuitive. Your GitHub profile link has also been added at the end for better recognition.
