@@ -1,10 +1,12 @@
 let popupWindowId;
 let watchForUrlChange = false;  // Flag to start/stop watching for URL changes
 let monitoredTabId;  // Tab ID we're monitoring for URL changes
+let previousUrl = "";  // Store the previous URL to compare with the new one
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.youtubeURL) {
         console.log("Received URL from content script:", message.youtubeURL);
+        previousUrl = "";  // Reset the previous URL
 
         fetch('http://localhost:5000/get_link', {
             method: 'POST',
@@ -56,13 +58,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (popupWindowId) {
+    // Ensure that we're only acting on the monitored tab
+    if (popupWindowId && tabId === monitoredTabId) {
         if (changeInfo.status === "complete" && tab.url.includes('youtube.com/watch?')) {
             // Tab finished loading. Now, start watching for URL changes.
             watchForUrlChange = true;
+            previousUrl = tab.url;  // Store the current URL as the previous URL
         }
 
-        if (watchForUrlChange && changeInfo.url) {
+        if (watchForUrlChange && changeInfo.url && changeInfo.url !== previousUrl) {
+            // If the URL has changed, close the popup window
             chrome.windows.remove(popupWindowId);
             popupWindowId = null;
             watchForUrlChange = false;
