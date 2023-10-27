@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "fyoutube",
+  "version": "1.0",
+  "description": "Get direct link of YouTube videos",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": [
+    "http://localhost:5000/",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://localhost:5000/"
+  ]
+}
