@@ -1,13 +1,106 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>YouTube Link Getter</title>
+    <title>fyoutube</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #FFF;
+            color: #000;
+            text-align: center;
+            max-width: 350px;
+        }
+
+        #action_container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        #youtube_url {
+            flex: 1;
+            padding: 12px;
+            margin-right: 10px;  
+            background-color: #F0F0F0;
+            color: #000;
+            border: none;
+            border-radius: 25px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #button_container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        button {
+            cursor: pointer;
+            padding: 12px 20px;
+            background-color: #000;
+            color: #FFF;
+            border: none;
+            border-radius: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.1em;
+            letter-spacing: 1.2px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #333;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+            transform: translateY(-4px);
+        }
+
+        button:active {
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(2px);
+        }
+
+        #result {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 25px;
+            background-color: #F0F0F0;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        #fyoutube_icon {
+            margin-right: 10px;
+        }
+
+    </style>
 </head>
+
 <body>
-    <input type="text" id="youtube_url" placeholder="Enter YouTube URL">
-    <button id="fetch_link">Get Direct Link</button>
-    <p id="result"></p>
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <img src="icon48.png" id="fyoutube_icon" alt="fyoutube icon">
+        <h2 style="margin: 0;">fyoutube</h2>
+    </div>
+
+    <div id="action_container">
+        <input type="text" id="youtube_url" placeholder="paste youtube url...">
+        <button id="fetch_link">get link</button>
+    </div>
+
+    <div id="result"></div>
+
+    <div id="button_container">
+        <button id="donate_link" onclick="window.open('https://www.paypal.com/donate/?hosted_button_id=R92KGPYHPE3JY', '_blank');">donation</button>
+        <button id="github_link" onclick="window.open('https://github.com/cdsisthe1/fyoutube', '_blank');">github</button>
+    </div>
 
     <script src="popup.js"></script>
 </body>
+
 </html>
