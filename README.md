@@ -1,3 +1,6 @@
+Absolutely. Here's an addition to your README with a copyright notice and a terms of use section:
+
+---
 
 <p align="center">
   <img src="icon128.png" alt="fYouTube logo">
@@ -35,4 +38,16 @@ found `fyoutube` helpful? consider supporting its development. every donation fu
 
 crafted with passion by [cdsisthe1](https://github.com/cdsisthe1).
 
+---
 
+### terms of use
+
+© 2023 cdsisthe1. All rights reserved.
+
+- **Educational Use Only**: This software is provided for educational purposes only. Ensure you're complying with any relevant terms of service or usage policies where you intend to use it.
+- **Use At Your Own Risk**: By using this software, you understand the potential risks and take full responsibility for any consequences or damages that may arise.
+- **Don't Steal, Give Credit**: You're welcome to learn from or be inspired by this project. However, directly copying, redistributing, or claiming as your own without proper acknowledgment is strictly prohibited.
+
+---
+
+This section provides a basic protection and sets out clear expectations for anyone viewing or using your project. However, if you're concerned about legal protection or licensing, it's always a good idea to consult with a legal professional to draft a more formal license or terms of use.
