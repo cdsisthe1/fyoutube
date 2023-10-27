@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="fyoutube.png" alt="fYouTube logo">
+  <img src="icon128.png" alt="fYouTube logo">
   <h1 align="center">fyoutube</h1>
 </p>
 
