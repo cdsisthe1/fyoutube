@@ -4,7 +4,12 @@
   "version": "1.0",
   "description": "Get direct link of YouTube videos",
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
   },
   "background": {
     "service_worker": "background.js"
@@ -18,7 +23,9 @@
   "permissions": [
     "http://localhost:5000/",
     "activeTab",
-    "storage"
+    "storage",
+    "tabs",
+    "windows"
   ],
   "host_permissions": [
     "http://localhost:5000/"
