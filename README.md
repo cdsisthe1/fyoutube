@@ -1,35 +1,37 @@
+Certainly! Here's the updated README:
 
-## Installation
+---
 
-**Step 1: Activate Developer Mode in Chrome Extensions**
-- Open your Chrome browser and navigate to the Extensions page by typing `chrome://extensions` in the address bar.
-- Locate the 'Developer mode' switch in the top right corner of the page and toggle it on.
+<p align="center">
+  <img src="fyoutube.png" alt="fYouTube logo">
+  <h1 align="center">fyoutube</h1>
+</p>
 
-**Step 2: Load the FYouTube Extension**
-- Still on the Extensions page, find and click on the 'Load unpacked' button.
-- A file dialog will appear. Use this to navigate to the location of the 'FYouTube' folder and select it.
+### install
 
-## Running the Application
+1. open extensions then turn on the developer switch.
+2. load unpacked and select the `fyoutube` folder.
 
-**Step 3: Open the Command Line Interface (CLI)**
-- Open your preferred CLI. This could be the Command Prompt, Terminal, or PowerShell, depending on your operating system.
+### running it
 
-**Step 4: Navigate to the FYouTube Folder**
-- In the CLI, use the `cd` command followed by the path to the 'FYouTube' folder to navigate to it.
+1. open `cmd`.
+2. navigate to the `fyoutube` folder using `cd` command.
+3. run the command: 
+```bash
+python app.py
+```
+4. head over to youtube, hold `shift + z` and click on any video. please wait a few seconds for the program to initialize.
 
-**Step 5: Run the Application**
-- Once in the 'FYouTube' folder, execute the `app.py` script using Python. You can do this by typing `python app.py` in the CLI and hitting Enter.
+### feedback
 
-## Usage
+if there are any updates you think I could add or any issues you encounter, please let me know in the [issues](https://github.com/cdsisthe1/fyoutube/issues).
 
-**Step 6: Visit YouTube**
-- Open a new tab in your web browser and navigate to the YouTube website by typing `https://www.youtube.com/` in the address bar.
+### support
 
-**Step 7: Activate the FYouTube Extension**
-- To use the FYouTube extension on a video, hold down the 'Shift' and 'Z' keys simultaneously and left-click on the video of your choice.
+if you find this project useful, consider supporting me by clicking the donate button below. every bit helps!
 
-**Step 8: Wait for the Video Pop-Up**
-- After a few seconds, a video pop-up should appear and start playing the video, provided the link is available.
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=R92KGPYHPE3JY)
 
-Please note that the functionality of the FYouTube extension is dependent on the availability of video links. If a link is not available, the video pop-up may not appear.
+---
 
+You can copy and paste this into your GitHub project's README.
