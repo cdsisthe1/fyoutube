@@ -1,6 +1,3 @@
-Of course! I've made your instructions clearer and emphasized the `shift + z` key combination. Here's the revised README:
-
----
 
 <p align="center">
   <img src="icon128.png" alt="fYouTube logo">
@@ -38,6 +35,4 @@ found `fyoutube` helpful? consider supporting its development. every donation fu
 
 crafted with passion by [cdsisthe1](https://github.com/cdsisthe1).
 
----
 
-The key combination `shift + z` has been highlighted, and the overall flow has been made more intuitive. Your GitHub profile link has also been added at the end for better recognition.
