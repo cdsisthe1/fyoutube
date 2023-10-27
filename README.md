@@ -26,7 +26,7 @@ python app.py
 
 ### 📣 feedback
 
-got suggestions or running into issues? I'd appreciate your insights and feedback. report them at [issues](https://github.com/cdsisthe1/fyoutube/issues).
+got suggestions or running into issues? I'd appreciate your insights and feedback. im learning so bare with me. report them at [issues](https://github.com/cdsisthe1/fyoutube/issues).
 
 ### ❤️ show some love
 
