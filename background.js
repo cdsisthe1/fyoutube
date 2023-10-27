@@ -62,34 +62,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 // Modify the tabs.onUpdated listener
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (popupWindowId && tabId === monitoredTabId) {
-        // Check if the tab has navigated away from a valid YouTube URL
         if (!tab.url.includes('youtube.com/watch?v=')) {
             chrome.windows.remove(popupWindowId);
             popupWindowId = null;
             watchForUrlChange = false;
-        } else if (changeInfo.status === "complete") {
-            // If the tab has finished loading and is still a YouTube URL, don't do anything.
-            // This prevents the popup from closing if YouTube reloads the page internally.
         }
     }
 });
-
-// Periodically check if the tab being monitored is active
-setInterval(() => {
-    if (popupWindowId && monitoredTabId) {
-        chrome.tabs.get(monitoredTabId, (tab) => {
-            if (chrome.runtime.lastError) {
-                // Handle any errors here
-                console.error(chrome.runtime.lastError);
-                return;
-            }
-            if (tab.active) {
-                chrome.windows.update(popupWindowId, { focused: true });
-            }
-        });
-    }
-}, 1000);  // Check every second
-
 
 chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
     if (popupWindowId && tabId === monitoredTabId) {
