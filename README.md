@@ -40,7 +40,7 @@ crafted with passion by [cdsisthe1](https://github.com/cdsisthe1).
 
 ### 🙏 inspiration
 
-This project was inspired by the work of [ambr0sial](https://github.com/ambr0sial).
+this project was inspired by the work of [ambr0sial](https://github.com/ambr0sial).
 
 ### 📜 terms of use
 
