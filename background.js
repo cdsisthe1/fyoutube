@@ -35,7 +35,7 @@ chrome.runtime.onMessage.addListener((message, sender) => {
 					left: 0,
 					top: 130,
 					width: 1900,
-					height: 853 - 42
+					height: 840 - 42
 				}, window => {
 					popupWindowId = window.id;
 					monitoredTabUrl = message.type === "openInSameTab" ? strippedYouTubeURL : sender.tab.url;
