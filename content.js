@@ -31,13 +31,19 @@ function handleMouseDown(event) {
 }
 
 if (window.location.hostname === "www.youtube.com" && window.location.pathname === "/watch") {
-    const checkVideoAndRemove = setInterval(() => {
+    const disableYouTubePlayer = () => {
         let videoContainer = document.querySelector(".html5-video-player");
         if (videoContainer) {
             videoContainer.remove();
-            clearInterval(checkVideoAndRemove);
+            console.log("YouTube player disabled.");
         }
-    }, 500);
+    };
+
+    // Disable the player immediately
+    disableYouTubePlayer();
+
+    // Periodically check and disable the player to handle dynamic content loading on YouTube
+    setInterval(disableYouTubePlayer, 500);
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
