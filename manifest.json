@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "fyoutube",
-  "version": "1.0",
+  "version": "2.0",
   "description": "Get direct link of YouTube videos",
   "action": {
     "default_popup": "popup.html",
@@ -25,7 +25,8 @@
     "activeTab",
     "storage",
     "tabs",
-    "windows"
+    "windows",
+    "alarms" 
   ],
   "host_permissions": [
     "http://localhost:5000/"

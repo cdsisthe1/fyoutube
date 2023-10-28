@@ -33,7 +33,17 @@ document.getElementById('donate_link').addEventListener('click', function() {
     chrome.tabs.create({ url: 'https://www.paypal.com/donate/?hosted_button_id=R92KGPYHPE3JY' });
 });
 
+document.getElementById('extensionToggle').addEventListener('change', function() {
+    let isEnabled = this.checked;
+    chrome.storage.local.set({ "extensionEnabled": isEnabled }, function() {
+        console.log("Extension state saved:", isEnabled);
+    });
+});
 
+// On popup load, set the toggle state
+chrome.storage.local.get("extensionEnabled", function(data) {
+    document.getElementById('extensionToggle').checked = data.extensionEnabled;
+});
 
 function copyToClipboard(text) {
     const textArea = document.createElement('textarea');
@@ -43,5 +53,3 @@ function copyToClipboard(text) {
     document.execCommand('copy');
     document.body.removeChild(textArea);
 }
-
-

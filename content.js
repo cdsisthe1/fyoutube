@@ -1,33 +1,24 @@
 console.log("content.js is loaded");
 
-let shiftZPressed = false;
-
-document.addEventListener('keydown', function(event) {
-    if (event.shiftKey && event.key === 'Z') {
-        console.log("Shift + Z pressed");
-        shiftZPressed = true;
-        document.addEventListener('mousedown', handleMouseDown, true);
+document.addEventListener('mousedown', function(event) {
+    let target = event.target.closest('A');
+    if (window.location.hostname === "www.youtube.com" && target && target.href && target.href.includes('youtube.com/watch?')) {
+        console.log("YouTube link clicked:", target.href);
+        chrome.storage.local.get("extensionEnabled", function(data) {
+            if (data.extensionEnabled) {
+                handleYouTubeLink(target);
+            }
+        });
     }
 });
 
-function handleMouseDown(event) {
-    let target = event.target.closest('A');
+function handleYouTubeLink(target) {
+    let clone = target.cloneNode(true);
+    target.parentNode.replaceChild(clone, target);
 
-    if (target && target.href && target.href.includes('youtube.com/watch?')) {
-        console.log("YouTube link clicked:", target.href);
+    chrome.runtime.sendMessage({ youtubeURL: target.href, type: "openInSameTab" });
 
-        if (shiftZPressed) {
-            let clone = target.cloneNode(true);
-            target.parentNode.replaceChild(clone, target);
-
-            chrome.runtime.sendMessage({ youtubeURL: target.href, type: "openInSameTab" });
-
-            clone.parentNode.replaceChild(target, clone);
-
-            shiftZPressed = false;
-            document.removeEventListener('mousedown', handleMouseDown, true);
-        }
-    }
+    clone.parentNode.replaceChild(target, clone);
 }
 
 if (window.location.hostname === "www.youtube.com" && window.location.pathname === "/watch") {
