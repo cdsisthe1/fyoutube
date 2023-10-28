@@ -17,40 +17,32 @@ chrome.alarms.onAlarm.addListener(alarm => {
 
 chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.youtubeURL) {
-        let strippedYouTubeURL = message.youtubeURL.split('&')[0];
-        fetch('http://localhost:5000/get_link', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ youtube_url: strippedYouTubeURL })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.direct_link) return console.error("No direct link from server.");
-            
-            closeExistingPopup();
-			let createPopup = () => {
-				chrome.windows.create({
-					url: data.direct_link,
-					type: 'popup',
-					left: 0,
-					top: 130,
-					width: 1900,
-					height: 840 - 42
-				}, window => {
-					popupWindowId = window.id;
-					monitoredTabUrl = message.type === "openInSameTab" ? strippedYouTubeURL : sender.tab.url;
-					monitoredTabId = sender.tab.id;
-				});
-			};
+        let videoId = new URL(message.youtubeURL).searchParams.get("v");
+        let embedURL = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
 
-            if (message.type === "openInSameTab") {
-                isExtensionUpdate = true;
-                chrome.tabs.update(sender.tab.id, { url: strippedYouTubeURL }, createPopup);
-            } else {
-                createPopup();
-            }
-        })
-        .catch(error => console.error('Fetch operation error:', error.message));
+
+        closeExistingPopup();
+        let createPopup = () => {
+            chrome.windows.create({
+                url: embedURL,
+                type: 'popup',
+                left: 0,
+                top: 130,
+                width: 1900,
+                height: 840 - 42
+            }, window => {
+                popupWindowId = window.id;
+                monitoredTabUrl = message.type === "openInSameTab" ? message.youtubeURL : sender.tab.url;
+                monitoredTabId = sender.tab.id;
+            });
+        };
+
+        if (message.type === "openInSameTab") {
+            isExtensionUpdate = true;
+            chrome.tabs.update(sender.tab.id, { url: message.youtubeURL }, createPopup);
+        } else {
+            createPopup();
+        }
     }
 
     if (message.event === "muteTab" && sender.tab) {

@@ -21,15 +21,10 @@
     }
   ],
   "permissions": [
-    "http://localhost:5000/",
     "activeTab",
     "storage",
     "tabs",
     "windows",
     "alarms"
-
-  ],
-  "host_permissions": [
-    "http://localhost:5000/"
   ]
 }
