@@ -5,7 +5,7 @@
 
 ### 💽 installation
 
-Before you start, ensure you have python and Google Chrome installed on your system.
+Before you start, ensure you have python and google chrome installed on your system.
 
 1. open your browser and navigate to the extensions page.
 2. enable 'developer mode' in the top right.
