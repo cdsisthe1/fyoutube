@@ -1,52 +1,51 @@
-
-
 <p align="center">
   <img src="icon128.png" alt="fYouTube logo">
   <h1 align="center">fyoutube</h1>
 </p>
 
-### 💽 install
+### 💽 installation
 
-1. open your browser's extensions page.
-2. activate the developer switch/mode.
-3. click on 'load unpacked' and choose the `fyoutube` folder.
+Before you start, ensure you have python and Google Chrome installed on your system.
 
-### 🚀 how to run
+1. open your browser and navigate to the extensions page.
+2. enable 'developer mode' in the top right.
+3. click 'load unpacked' and select the `fyoutube` directory.
 
-1. open your command prompt or `cmd`.
-2. navigate to the `fyoutube` folder:
+### 🚀 how to use
+
+1. launch your command prompt or terminal.
+2. change directory to the `fyoutube` folder:
 ```bash
 cd path-to-fyoutube-folder
 ```
-3. start the application:
+3. run the application:
 ```bash
 python app.py
 ```
-4. once the app is running, visit youtube. to activate the feature, press and hold `shift + z` together, then click on any video. give the program a few moments to do its magic.
+4. once the app is active, head over to YouTube. to activate the extension, ensure the toggle button in Chrome is turned on. then, simply click on any YouTube video. please be patient as the program processes. if the link can't be found or it doesn't work, a refresh on YouTube might help.
 
 ### 📣 feedback
 
-got suggestions or running into issues? I'd appreciate your insights and feedback. im learning so bare with me. report them at [issues](https://github.com/cdsisthe1/fyoutube/issues).
+encountering issues or have ideas to share? your feedback is invaluable, and as I'm still learning, I'd appreciate any insights. report them [here](https://github.com/cdsisthe1/fyoutube/issues).
 
-### ❤️ show some love
+### ❤️ support
 
-found `fyoutube` helpful? consider supporting its development. every donation fuels the project!
+if you find `fyoutube` useful, consider backing its growth. every contribution propels the project forward!
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=R92KGPYHPE3JY)
+[![donate](https://img.shields.io/badge/donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=R92KGPYHPE3JY)
 
-crafted with passion by [cdsisthe1](https://github.com/cdsisthe1).
+made with dedication by [cdsisthe1](https://github.com/cdsisthe1).
 
 ---
 
-### 🙏 inspiration
+### 🙏 credits
 
-this project was inspired by the work of [ambr0sial](https://github.com/ambr0sial).
+this initiative was sparked by the efforts of [ambr0sial](https://github.com/ambr0sial).
 
 ### 📜 terms of use
 
 © 2023 cdsisthe1. all rights reserved.
 
-- **educational use only**: this software is provided for educational purposes only. ensure you're complying with any relevant terms of service or usage policies where you intend to use it.
-- **use at your own risk**: by using this software, you understand the potential risks and take full responsibility for any consequences or damages that may arise.
-- **don't steal, give credit**: you're welcome to learn from or be inspired by this project. however, directly copying, redistributing, or claiming as your own without proper acknowledgment is strictly prohibited.
-
+- **for educational purposes**: this software is solely for academic use. ensure adherence to all relevant terms of service or usage guidelines when deploying.
+- **use responsibly**: by utilizing this software, you acknowledge potential risks and accept all repercussions or damages that might ensue.
+- **credit where it's due**: while you're encouraged to learn and draw inspiration from this project, direct replication, redistribution, or claiming ownership without proper recognition is not allowed.
