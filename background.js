@@ -5,8 +5,8 @@ let isExtensionUpdate = false;  // Flag to track if the URL update was initiated
 
 // Create a periodic alarm to keep the service worker active
 chrome.alarms.create('keepAlive', {
-    delayInMinutes: .03,
-    periodInMinutes: .03
+    delayInMinutes: .05,
+    periodInMinutes: .05
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
