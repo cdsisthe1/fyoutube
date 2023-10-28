@@ -1,9 +1,7 @@
-// background.js
-
 let popupWindowId;
-let monitoredTabId;  // ID of the tab we're monitoring
-let monitoredTabUrl;  // URL of the tab we're monitoring
-let isExtensionUpdate = false;  // Flag to track if the URL update was initiated by the extension
+let monitoredTabId;
+let monitoredTabUrl;
+let isExtensionUpdate = false;
 
 function closeExistingPopup() {
     if (popupWindowId) {
@@ -12,115 +10,80 @@ function closeExistingPopup() {
     }
 }
 
-// Create a periodic alarm to keep the service worker active
-chrome.alarms.create('keepAlive', {
-    delayInMinutes: .05,
-    periodInMinutes: .05
+chrome.alarms.create('keepAlive', { delayInMinutes: .03, periodInMinutes: .03 });
+chrome.alarms.onAlarm.addListener(alarm => {
+    if (alarm.name === 'keepAlive') console.log("Waking up service worker.");
 });
 
-chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name === 'keepAlive') {
-        console.log("Waking up service worker.");
-    }
-});
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.youtubeURL) {
-        console.log("Received URL from content script:", message.youtubeURL);
-
-        // Remove anything after the & from the YouTube URL
         let strippedYouTubeURL = message.youtubeURL.split('&')[0];
-
         fetch('http://localhost:5000/get_link', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ youtube_url: strippedYouTubeURL })
         })
         .then(response => response.json())
         .then(data => {
-            if (data.direct_link) {
-                closeExistingPopup(); // Close existing pop-up if any
+            if (!data.direct_link) return console.error("No direct link from server.");
+            
+            closeExistingPopup();
+			let createPopup = () => {
+				chrome.windows.create({
+					url: data.direct_link,
+					type: 'popup',
+					left: 0,
+					top: 130,
+					width: 1900,
+					height: 853 - 42
+				}, window => {
+					popupWindowId = window.id;
+					monitoredTabUrl = message.type === "openInSameTab" ? strippedYouTubeURL : sender.tab.url;
+					monitoredTabId = sender.tab.id;
+				});
+			};
 
-                if (message.type === "openInSameTab") {
-                    isExtensionUpdate = true;
-                    chrome.tabs.update(sender.tab.id, { url: strippedYouTubeURL }, (tab) => {
-                        chrome.windows.create({
-                            url: data.direct_link,
-                            type: 'popup',
-                            left: 240,
-                            top: 120,
-                            width: 1410,
-                            height: 810
-                        }, (window) => {
-                            popupWindowId = window.id;
-                            monitoredTabUrl = strippedYouTubeURL;
-                            monitoredTabId = sender.tab.id;
-                        });
-                    });
-                } else {
-                    chrome.windows.create({
-                        url: data.direct_link,
-                        type: 'popup',
-                        left: 240,
-                        top: 120,
-                        width: 1410,
-                        height: 810
-                    }, (window) => {
-                        popupWindowId = window.id;
-                        monitoredTabUrl = sender.tab.url;
-                        monitoredTabId = sender.tab.id;
-                    });
-                }
+            if (message.type === "openInSameTab") {
+                isExtensionUpdate = true;
+                chrome.tabs.update(sender.tab.id, { url: strippedYouTubeURL }, createPopup);
             } else {
-                console.error("Did not receive a direct link from the server.");
+                createPopup();
             }
         })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error.message);
-        });
+        .catch(error => console.error('Fetch operation error:', error.message));
+    }
+
+    if (message.event === "muteTab" && sender.tab) {
+        chrome.tabs.update(sender.tab.id, { muted: true });
     }
 });
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+function handleTabUpdate(tabId, tab) {
     if (tabId !== monitoredTabId) return;
-
-    if (changeInfo.status !== 'complete') {
-        return;
-    }
-
+    
     if (isExtensionUpdate) {
         isExtensionUpdate = false;
         return;
     }
 
-    if (popupWindowId && monitoredTabUrl) {
-        if (tab.url !== monitoredTabUrl) {
-            chrome.windows.remove(popupWindowId);
-            popupWindowId = null;
-            monitoredTabUrl = null;
-            monitoredTabId = null;  // Reset the monitored tab ID
-        }
-    }
-});
-
-chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
-    if (tabId !== monitoredTabId) return;
-
-    if (popupWindowId) {
+    if (popupWindowId && monitoredTabUrl && tab.url !== monitoredTabUrl) {
         chrome.windows.remove(popupWindowId);
         popupWindowId = null;
         monitoredTabUrl = null;
-        monitoredTabId = null;  // Reset the monitored tab ID
+        monitoredTabId = null;
     }
+}
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.status === 'complete') handleTabUpdate(tabId, tab);
 });
+chrome.tabs.onRemoved.addListener(handleTabUpdate);
 
-chrome.tabs.onActivated.addListener((activeInfo) => {
-    if (activeInfo.tabId !== monitoredTabId) return;
+chrome.tabs.onActivated.addListener(({tabId}) => {
+    if (tabId !== monitoredTabId) return;
 
-    chrome.tabs.get(activeInfo.tabId, (tab) => {
-        if (popupWindowId && tab.url && tab.url.includes(monitoredTabUrl)) {
+    chrome.tabs.get(tabId, tab => {
+        if (popupWindowId && tab.url.includes(monitoredTabUrl)) {
             chrome.windows.update(popupWindowId, { focused: true });
         }
     });

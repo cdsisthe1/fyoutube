@@ -26,7 +26,8 @@
     "storage",
     "tabs",
     "windows",
-    "alarms" 
+    "alarms"
+
   ],
   "host_permissions": [
     "http://localhost:5000/"
