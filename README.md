@@ -1,32 +1,26 @@
 <p align="center">
-  <img src="icon128.png" alt="fYouTube logo">
+  <img src="icon128.png" alt="fyoutube logo">
   <h1 align="center">fyoutube</h1>
 </p>
 
 ### 💽 installation
 
-Before you start, ensure you have python and google chrome installed on your system.
-
-1. open your browser and navigate to the extensions page.
-2. enable 'developer mode' in the top right.
+1. download `fyoutube` or use `git clone https://github.com/cdsisthe1/fyoutube.git`
+2. enable 'developer mode' slider in the top right of your browser's extensions page.
 3. click 'load unpacked' and select the `fyoutube` directory.
 
 ### 🚀 how to use
 
-1. launch your command prompt or terminal.
-2. change directory to the `fyoutube` folder:
-```bash
-cd path-to-fyoutube-folder
-```
-3. run the application:
-```bash
-python app.py
-```
-4. once the app is active, head over to YouTube. to activate the extension, ensure the toggle button in Chrome is turned on. then, simply click on any YouTube video. please be patient as the program processes. if the link can't be found or it doesn't work, a refresh on YouTube might help.
+1. make sure the extension is toggled on.
+2. click the extension icon in the top right of chrome.
+3. slide the slider to "on".
+4. go to youtube and click any video. a popup will appear with the video without ads.
+5. if you close the tab, the popup closes too.
+6. note: this currently works for only 1 tab in chrome.
 
 ### 📣 feedback
 
-encountering issues or have ideas to share? your feedback is invaluable, and as I'm still learning, I'd appreciate any insights. report them [here](https://github.com/cdsisthe1/fyoutube/issues).
+encountering issues or have ideas to share? your feedback is invaluable, and as i'm still learning, i'd appreciate any insights. report them [here](https://github.com/cdsisthe1/fyoutube/issues).
 
 ### ❤️ support
 
