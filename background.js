@@ -1,7 +1,16 @@
+// background.js
+
 let popupWindowId;
 let monitoredTabId;  // ID of the tab we're monitoring
 let monitoredTabUrl;  // URL of the tab we're monitoring
 let isExtensionUpdate = false;  // Flag to track if the URL update was initiated by the extension
+
+function closeExistingPopup() {
+    if (popupWindowId) {
+        chrome.windows.remove(popupWindowId);
+        popupWindowId = null;
+    }
+}
 
 // Create a periodic alarm to keep the service worker active
 chrome.alarms.create('keepAlive', {
@@ -32,6 +41,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         .then(response => response.json())
         .then(data => {
             if (data.direct_link) {
+                closeExistingPopup(); // Close existing pop-up if any
+
                 if (message.type === "openInSameTab") {
                     isExtensionUpdate = true;
                     chrome.tabs.update(sender.tab.id, { url: strippedYouTubeURL }, (tab) => {
@@ -44,8 +55,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                             height: 810
                         }, (window) => {
                             popupWindowId = window.id;
+                            monitoredTabUrl = strippedYouTubeURL;
+                            monitoredTabId = sender.tab.id;
                         });
-                        monitoredTabUrl = strippedYouTubeURL;
                     });
                 } else {
                     chrome.windows.create({
@@ -58,6 +70,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                     }, (window) => {
                         popupWindowId = window.id;
                         monitoredTabUrl = sender.tab.url;
+                        monitoredTabId = sender.tab.id;
                     });
                 }
             } else {
@@ -68,7 +81,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             console.error('There was a problem with the fetch operation:', error.message);
         });
     }
-    monitoredTabId = sender.tab.id;  // Store the ID of the tab we're monitoring
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
