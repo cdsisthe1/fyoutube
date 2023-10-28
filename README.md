@@ -49,7 +49,7 @@ git clone https://github.com/cdsisthe1/fyoutube.git
 
 ## 📣 feedback
 
-if you encounter issues or have suggestions, please share your feedback. your insights are invaluable. report them [here](https://github.com/cdsisthe1/fyoutube/issues).
+if you encounter issues or have suggestions, please share your feedback report them [here](https://github.com/cdsisthe1/fyoutube/issues).
 
 ## ❤️ support
 
