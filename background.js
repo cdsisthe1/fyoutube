@@ -10,10 +10,6 @@ function closeExistingPopup() {
     }
 }
 
-chrome.alarms.create('keepAlive', { delayInMinutes: .03, periodInMinutes: .03 });
-chrome.alarms.onAlarm.addListener(alarm => {
-    if (alarm.name === 'keepAlive') console.log("Waking up service worker.");
-});
 
 chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.youtubeURL) {
